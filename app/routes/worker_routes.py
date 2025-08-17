@@ -1,7 +1,8 @@
 from flask_restx import Namespace, Resource
-from app import api
+from app import api, celery_client
 from app.schemas import worker_model, response_model
 from app.utils import create_response
+from app.config import config
 
 worker = Namespace(
     name='worker',
@@ -25,9 +26,35 @@ class WorkerTaskHandler(Resource):
                 'Error',
                 'No parameter',
                 '',
-                404
+                400
+            )
+        task_name = data['task_name']
+        client_id = data['client_id']
+        param = data['param']
+        
+        if task_name not in config.ALLOWED_TASKS:
+            return create_response(
+                'Error',
+                f'Invalid task name: {task_name}',
+                '',
+                400
             )
         
-        
+        queue = config.ALLOWED_TASKS[task_name]
+
+        # Trigger task 
+        result = celery_client.send_task(
+            task_name,
+            args=[client_id],
+            kwargs={'param': param},
+            queue=queue
+        )
+
+        return create_response(
+            'Finished',
+            f'Task {task_name} queued for client {client_id}',
+            f'Task ID: {result.id}',
+            202
+        )
 
 

@@ -14,12 +14,13 @@ class Config(object):
     CELERY_TIMEZONE = 'UTC'
     CELERY_ENABLE_UTC = True
 
-    # Load allowed queues from environment variable CELERY_QUEUES (comma-separated) 
-    # E.g., timekeeping,py,report
-    # Fallback to default queue if unset
-    ALLOWED_QUEUES = os.environ.get('CELERY_QUEUES', '').split(',')
-    ALLOWED_QUEUES = [q.strip() for q in ALLOWED_QUEUES if q.strip()] or ['timekeeping']
-
+    # Allowed tasks and their queues
+    # Format: {task_name: queue_name} 
+    ALLOWED_TASKS = {
+        'runModule01': 'module01',
+        'runModule02': 'module02',
+        # Add more task needed
+    }
     # Other settings (e.g., database or logging)
 
     # Database settings
