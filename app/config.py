@@ -27,9 +27,12 @@ class Config(object):
 
     # Logging settings
     LOGGER_DEBUG = False
-    LOGGER_IDENTIFIER = "my_celery_app"
+    LOGGER_IDENTIFIER = "task_distributor_app"
     LOGGER_MAX_BYTE = 10485760
     LOGGER_BACKUP_COUNT = 10
+
+    # Flask APP settings
+    DEBUG=False
 
 class DevelopmentConfig(Config):
     """Development environment configuration."""
@@ -42,6 +45,9 @@ class DevelopmentConfig(Config):
     LOGGER_MAX_BYTE = 10485760
     LOGGER_BACKUP_COUNT = 5
 
+    # Flask APP settings
+    DEBUG=True
+
 class ProductionConfig(Config):
     """Production environment configuration."""
     # Celery settings
@@ -52,6 +58,9 @@ class ProductionConfig(Config):
     LOGGER_IDENTIFIER = "production_log"
     LOGGER_MAX_BYTE = 10485760
     LOGGER_BACKUP_COUNT = 10
+
+    # Flask APP settings
+    DEBUG=False
 
 
 # Load config based on environment (e.g., APP_ENV=development)

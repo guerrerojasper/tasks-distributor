@@ -1,5 +1,7 @@
 from app import api
 from app.routes import worker_ns
+from app.global_init.logger import logger
 
 def register_routes() -> None:
-    api.add_namespace(worker_ns)
+    logger.info("Registering endoints: /v1/")
+    api.add_namespace(worker_ns, path='/v1/worker')

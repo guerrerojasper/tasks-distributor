@@ -4,7 +4,6 @@ from app import api
 worker_model = api.model(
     'worker',
     {
-        'task_name': fields.String(required=True, description='Task name'),
         'client_id': fields.String(required=True, description='Client ID no'),
         'param': fields.String(required=True, description='Task parameters')
     }
