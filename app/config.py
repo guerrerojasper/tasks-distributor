@@ -17,8 +17,8 @@ class Config(object):
     # Allowed tasks and their queues
     # Format: {task_name: queue_name} 
     ALLOWED_TASKS = {
-        'runModule01': 'module01',
-        'runModule02': 'module02',
+        'runModule01': 'queue1',
+        'runModule02': 'queue2',
         # Add more task needed
     }
     # Other settings (e.g., database or logging)

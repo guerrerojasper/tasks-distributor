@@ -1,7 +1,7 @@
 from flask_restx import fields
 from app import api
 
-worker_model = api.Model(
+worker_model = api.model(
     'worker',
     {
         'task_name': fields.String(required=True, description='Task name'),

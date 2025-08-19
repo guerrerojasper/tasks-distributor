@@ -12,6 +12,9 @@ def initialize_celery() -> Celery:
         broker=config.CELERY_BROKER_URL,
         backend=config.CELERY_RESULT_BACKEND
     )
+    print("Initializing celery app.")
+    print(f"Broker: {config.CELERY_BROKER_URL}")
+    print(f"Backend: {config.CELERY_RESULT_BACKEND}")
 
     app.conf.update(
         accept_content=config.CELERY_ACCEPT_CONTENT,

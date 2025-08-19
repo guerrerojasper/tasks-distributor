@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_restx import Api
 from app.config import config
-from config.celery import initialize_celery
+from app.global_init.celery import initialize_celery
 
 
 celery_client = initialize_celery()
+print(f"Backend object: {celery_client.backend}")
+
 
 api = Api(
     version='1.0',
@@ -22,9 +24,13 @@ def create_app() -> Flask:
         Flask APP
     """
     app = Flask(__name__)
-    app.config.from_object('config')
+    app.config.from_object(config)
 
     api.init_app(app)
+
+    # Register routes
+    from app.register import register_routes
+    register_routes()
 
     return app
 
