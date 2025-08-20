@@ -7,9 +7,18 @@ from app.global_init.logger import logger
 
 celery_client = initialize_celery()
 
+authorizations = {
+    'apikey': {
+        'type': 'apiKey',
+        'in': 'headers',
+        'name': 'X-API-Key'
+    }
+}
+
 api = Api(
     version='1.0',
     title='Task Distributor APP',
+    authorizations=authorizations,
     description='A simple Flask APP for task distributing celery worker',
     doc='/swagger'
 )

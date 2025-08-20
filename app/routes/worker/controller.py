@@ -4,6 +4,7 @@ from app.schemas import worker_model, response_model
 from app.utils import create_response
 from app.config import config
 from app.global_init.logger import logger
+from app.global_init.authenticate import require_api_key
 from ast import literal_eval
 
 
@@ -20,9 +21,10 @@ class WorkerTaskHandler(Resource):
     """
     Endpoint for celery trigger task.
     """
-    @worker_ns.doc('create_task')
+    @worker_ns.doc('create_task', security='apikey')
     @worker_ns.expect(worker_model, validate=True)
     @worker_ns.marshal_with(response_model)
+    @require_api_key
     def post(self, taskname):
         data = api.payload
         logger.info("-" * 80)
