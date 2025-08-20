@@ -21,7 +21,7 @@ class WorkerTaskHandler(Resource):
     """
     Endpoint for celery trigger task.
     """
-    @worker_ns.doc('create_task', security='apikey')
+    @worker_ns.doc('create_task', security=['apikey', 'jwt'])
     @worker_ns.expect(worker_model, validate=True)
     @worker_ns.marshal_with(response_model)
     @require_api_key
@@ -29,6 +29,7 @@ class WorkerTaskHandler(Resource):
         data = api.payload
         logger.info("-" * 80)
         logger.info("Resource: WorkerTaskHandler")
+        logger.info("Method: create_task")
         logger.info(f"Payload: {data}")
         logger.info(f"Path parameter - taskname: {taskname}")
 

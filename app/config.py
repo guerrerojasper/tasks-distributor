@@ -23,7 +23,9 @@ class Config(object):
     }
     # Other settings (e.g., database or logging)
 
-    # Database settings
+    # Database settings (username and password cred hardcode for now)
+    USER_NAME = 'WORKER'
+    USER_PASSWORD = 'TASK_WORKER'
 
     # Logging settings
     LOGGER_DEBUG = False
@@ -33,6 +35,10 @@ class Config(object):
 
     # Flask APP settings
     DEBUG=False
+
+    # JWT Settings
+    JWT_ACCESS_TOKEN_EXPIRATION=30 #minutes
+    JWT_REFRESH_TOKEN_EXPIRATION=7 #days
 
 class DevelopmentConfig(Config):
     """Development environment configuration."""
